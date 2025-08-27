@@ -2,6 +2,32 @@
 
 // Function to hide Shorts and other slop elements dynamically
 function hideShorts() {
+  // === BLOCK TWITTER/X VIDEO POSTS ===
+  if (window.location.hostname === 'twitter.com' || window.location.hostname === 'x.com') {
+    // Find all tweet articles
+    const tweets = document.querySelectorAll('article[data-testid="tweet"]');
+    tweets.forEach(tweet => {
+      // Check if tweet contains video
+      if (tweet.querySelector('[data-testid="videoPlayer"]') || 
+          tweet.querySelector('[data-testid="videoComponent"]') ||
+          tweet.querySelector('video')) {
+        // Hide the entire tweet
+        tweet.style.display = 'none';
+        
+        // Also hide the parent cell to prevent empty space
+        const cellParent = tweet.closest('[data-testid="cellInnerDiv"]');
+        if (cellParent) {
+          cellParent.style.display = 'none';
+        }
+      }
+    });
+  }
+  
+  // Skip YouTube-specific hiding if not on YouTube
+  if (!window.location.hostname.includes('youtube.com')) {
+    return;
+  }
+  
   // === BLOCK YOUTUBE PLAYABLES (GAMES) ===
   // Hide sections containing YouTube Playables
   const playablesSections = document.querySelectorAll('ytm-rich-section-renderer, ytd-rich-section-renderer');
@@ -145,27 +171,33 @@ function hideShorts() {
   reelItems.forEach(el => el.style.display = 'none');
 }
 
+// Determine which site we're on
+const isTwitter = window.location.hostname === 'twitter.com' || window.location.hostname === 'x.com';
+const isYouTube = window.location.hostname.includes('youtube.com');
+
 // Run on page load with slight delay for dynamic content
-setTimeout(hideShorts, 100);
-hideShorts();
-
-// Set up observer for dynamically loaded content
-const observer = new MutationObserver(() => {
+if (isTwitter || isYouTube) {
+  setTimeout(hideShorts, 100);
   hideShorts();
-});
-
-// Start observing when DOM is ready
-if (document.body) {
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
+  
+  // Set up observer for dynamically loaded content
+  const observer = new MutationObserver(() => {
+    hideShorts();
   });
-} else {
-  // Wait for body to be available
-  document.addEventListener('DOMContentLoaded', () => {
+
+  // Start observing when DOM is ready
+  if (document.body) {
     observer.observe(document.body, {
       childList: true,
       subtree: true
     });
-  });
+  } else {
+    // Wait for body to be available
+    document.addEventListener('DOMContentLoaded', () => {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    });
+  }
 }
