@@ -1,5 +1,22 @@
 /* Block YouTube Shorts - CSS Rules */
 
+/* Hide entire sections containing Shorts - mobile/responsive view */
+ytm-rich-section-renderer:has(.shortsLockupViewModelHost),
+ytm-rich-section-renderer:has(h2:has(.yt-core-attributed-string:has-text("Shorts"))) {
+  display: none !important;
+}
+
+/* Hide grid shelf containing Shorts */
+grid-shelf-view-model:has(.shortsLockupViewModelHost) {
+  display: none !important;
+}
+
+/* Hide Shorts pivot bar item (mobile navigation) */
+ytm-pivot-bar-item-renderer:has(.pivot-shorts),
+.pivot-bar-item-tab.pivot-shorts {
+  display: none !important;
+}
+
 /* Hide Shorts tab in sidebar - using actual YouTube selector */
 ytd-guide-entry-renderer:has(a[title="Shorts"]) {
   display: none !important;
@@ -10,10 +27,7 @@ ytd-mini-guide-entry-renderer:has(a[title="Shorts"]) {
   display: none !important;
 }
 
-/* Hide Shorts shelf that contains the title "Shorts" */
-ytd-rich-shelf-renderer:has(span#title:is(:has-text("Shorts"), :contains("Shorts"))) {
-  display: none !important;
-}
+/* Hide any shelf/section with "Shorts" in the title - needs JavaScript check */
 
 /* Hide Shorts shelf with Shorts icon or reel shelf */
 ytd-rich-shelf-renderer:has(.shortsLockupViewModelHost),

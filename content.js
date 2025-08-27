@@ -2,6 +2,48 @@
 
 // Function to hide Shorts elements dynamically
 function hideShorts() {
+  // Hide mobile/responsive Shorts sections
+  const mobileRichSections = document.querySelectorAll('ytm-rich-section-renderer');
+  mobileRichSections.forEach(section => {
+    // Check if section contains Shorts
+    if (section.querySelector('.shortsLockupViewModelHost') || 
+        section.querySelector('h2 .yt-core-attributed-string')?.textContent === 'Shorts') {
+      section.style.display = 'none';
+    }
+  });
+  
+  // Hide grid shelf containing Shorts
+  const gridShelves = document.querySelectorAll('grid-shelf-view-model');
+  gridShelves.forEach(shelf => {
+    if (shelf.querySelector('.shortsLockupViewModelHost')) {
+      shelf.style.display = 'none';
+    }
+  });
+  
+  // Hide Shorts pivot bar items (mobile navigation)
+  const pivotItems = document.querySelectorAll('ytm-pivot-bar-item-renderer');
+  pivotItems.forEach(item => {
+    if (item.querySelector('.pivot-shorts') || 
+        item.querySelector('.yt-core-attributed-string')?.textContent === 'Shorts') {
+      item.style.display = 'none';
+    }
+  });
+  
+  // Hide section headers with "Shorts" title
+  const sectionHeaders = document.querySelectorAll('yt-section-header-view-model, yt-shelf-header-layout');
+  sectionHeaders.forEach(header => {
+    const titleText = header.querySelector('.yt-core-attributed-string')?.textContent;
+    if (titleText === 'Shorts') {
+      // Hide the entire parent section
+      const parentSection = header.closest('ytm-rich-section-renderer') || 
+                           header.closest('ytd-rich-shelf-renderer') ||
+                           header.closest('grid-shelf-view-model');
+      if (parentSection) {
+        parentSection.style.display = 'none';
+      }
+    }
+  });
+  
   // Hide Shorts tab in sidebar - target the ytd-guide-entry-renderer that contains a[title="Shorts"]
   const shortsEntries = document.querySelectorAll('ytd-guide-entry-renderer');
   shortsEntries.forEach(entry => {
@@ -18,7 +60,7 @@ function hideShorts() {
     }
   });
   
-  // Hide Shorts shelf by checking for "Shorts" in the title
+  // Hide desktop Shorts shelf by checking for "Shorts" in the title
   const richShelves = document.querySelectorAll('ytd-rich-shelf-renderer');
   richShelves.forEach(shelf => {
     const titleElement = shelf.querySelector('span#title');
