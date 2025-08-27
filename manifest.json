@@ -1,20 +1,24 @@
 {
   "manifest_version": 3,
-  "name": "Block YouTube Shorts",
-  "version": "1.0.0",
-  "description": "Hide YouTube Shorts from your browsing experience",
+  "name": "Block Shorts & Slop",
+  "version": "1.1.0",
+  "description": "Hide YouTube Shorts, games, and Twitter video posts",
   "permissions": [],
   "host_permissions": [
     "https://www.youtube.com/*",
     "https://youtube.com/*",
-    "https://m.youtube.com/*"
+    "https://m.youtube.com/*",
+    "https://twitter.com/*",
+    "https://x.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
         "https://www.youtube.com/*",
         "https://youtube.com/*",
-        "https://m.youtube.com/*"
+        "https://m.youtube.com/*",
+        "https://twitter.com/*",
+        "https://x.com/*"
       ],
       "css": ["styles.css"],
       "js": ["content.js"],

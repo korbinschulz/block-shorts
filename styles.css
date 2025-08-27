@@ -1,5 +1,20 @@
 /* Block YouTube Shorts & Slop - CSS Rules */
 
+/* === TWITTER/X VIDEO POSTS === */
+/* Hide tweets containing videos */
+article[data-testid="tweet"]:has([data-testid="videoPlayer"]),
+article[data-testid="tweet"]:has([data-testid="videoComponent"]),
+article[data-testid="tweet"]:has(video) {
+  display: none !important;
+}
+
+/* Hide the parent cell to prevent empty space */
+[data-testid="cellInnerDiv"]:has(article[data-testid="tweet"]:has([data-testid="videoPlayer"])),
+[data-testid="cellInnerDiv"]:has(article[data-testid="tweet"]:has([data-testid="videoComponent"])),
+[data-testid="cellInnerDiv"]:has(article[data-testid="tweet"]:has(video)) {
+  display: none !important;
+}
+
 /* === BLOCK YOUTUBE PLAYABLES (GAMES) === */
 /* Hide sections containing YouTube Playables */
 ytm-rich-section-renderer:has(.yt-mini-game-card-view-model),
