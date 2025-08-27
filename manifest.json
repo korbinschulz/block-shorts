@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Block YouTube Shorts",
+  "version": "1.0.0",
+  "description": "Hide YouTube Shorts from your browsing experience",
+  "permissions": [],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://youtube.com/*",
+    "https://m.youtube.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://youtube.com/*",
+        "https://m.youtube.com/*"
+      ],
+      "css": ["styles.css"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

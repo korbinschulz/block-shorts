@@ -1,0 +1,56 @@
+/* Block YouTube Shorts - CSS Rules */
+
+/* Hide Shorts tab in sidebar - using actual YouTube selector */
+ytd-guide-entry-renderer:has(a[title="Shorts"]) {
+  display: none !important;
+}
+
+/* Hide Shorts in mini guide (collapsed sidebar) */
+ytd-mini-guide-entry-renderer:has(a[title="Shorts"]) {
+  display: none !important;
+}
+
+/* Hide Shorts shelf that contains the title "Shorts" */
+ytd-rich-shelf-renderer:has(span#title:is(:has-text("Shorts"), :contains("Shorts"))) {
+  display: none !important;
+}
+
+/* Hide Shorts shelf with Shorts icon or reel shelf */
+ytd-rich-shelf-renderer:has(.shortsLockupViewModelHost),
+ytd-reel-shelf-renderer {
+  display: none !important;
+}
+
+/* Hide Shorts lockup models (new YouTube component) */
+ytm-shorts-lockup-view-model,
+ytm-shorts-lockup-view-model-v2 {
+  display: none !important;
+}
+
+/* Hide any rich item renderer containing Shorts */
+ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+ytd-rich-item-renderer:has(.reel-item-endpoint) {
+  display: none !important;
+}
+
+/* Hide individual Shorts videos - any link containing /shorts/ */
+ytd-video-renderer:has(a[href*="/shorts/"]),
+ytd-grid-video-renderer:has(a[href*="/shorts/"]),
+ytd-compact-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* Hide Shorts reel items */
+ytd-reel-item-renderer {
+  display: none !important;
+}
+
+/* Hide Shorts section on channel pages */
+ytd-item-section-renderer:has(ytd-reel-shelf-renderer) {
+  display: none !important;
+}
+
+/* Hide links with reel-item-endpoint class (Shorts specific) */
+.reel-item-endpoint {
+  display: none !important;
+}
