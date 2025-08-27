@@ -1,14 +1,20 @@
-# Block YouTube Shorts - Chrome Extension
+# Block Shorts & Slop - Chrome Extension
 
-A simple Chrome extension that completely hides YouTube Shorts from your browsing experience.
+A Chrome extension that removes distracting content from YouTube and Twitter/X.
 
 ## Features
 
-- Removes Shorts from YouTube homepage
-- Hides the Shorts tab in the sidebar
-- Filters out Shorts from search results
-- Removes Shorts shelves from channel pages
-- Clean, non-intrusive - just makes Shorts disappear
+### YouTube
+- Removes Shorts from homepage, search, and channel pages
+- Hides the Shorts tab in the sidebar  
+- Blocks YouTube Playables (games) section
+- Removes promotional content with dismiss buttons
+- Filters out News, Trending, and Gaming sections
+
+### Twitter/X
+- Hides all posts containing videos
+- Keeps text-only and image posts visible
+- Works on both twitter.com and x.com
 
 ## Installation
 
@@ -26,7 +32,11 @@ A simple Chrome extension that completely hides YouTube Shorts from your browsin
 
 ## How It Works
 
-This extension uses CSS injection to hide all YouTube Shorts elements. It doesn't collect any data or require any permissions beyond accessing YouTube pages.
+This extension uses CSS and JavaScript injection to hide unwanted content:
+- CSS rules with `:has()` selectors for efficient hiding
+- JavaScript for dynamic content detection
+- MutationObserver to catch newly loaded content
+- No data collection or external requests
 
 ## Compatibility
 
@@ -37,14 +47,19 @@ This extension uses CSS injection to hide all YouTube Shorts elements. It doesn'
 
 ## Troubleshooting
 
-**Shorts still appearing?**
-- Refresh the YouTube page
+**Content still appearing?**
+- Refresh the page
 - Make sure the extension is enabled in `chrome://extensions/`
-- YouTube may have updated their layout - check for extension updates
+- Sites may have updated their layout - check for extension updates
 
-**YouTube looks broken?**
+**Site looks broken?**
 - Disable the extension temporarily to check if it's causing issues
 - Report any problems via GitHub Issues
+
+**Twitter videos not being hidden?**
+- Make sure you're on twitter.com or x.com
+- Some embedded videos might use different structures
+- Try refreshing the page
 
 ## Privacy
 
