@@ -1,4 +1,39 @@
-/* Block YouTube Shorts - CSS Rules */
+/* Block YouTube Shorts & Slop - CSS Rules */
+
+/* === BLOCK YOUTUBE PLAYABLES (GAMES) === */
+/* Hide sections containing YouTube Playables */
+ytm-rich-section-renderer:has(.yt-mini-game-card-view-model),
+ytm-rich-section-renderer:has(mini-game-card-view-model) {
+  display: none !important;
+}
+
+/* Hide YouTube Playables shelf */
+ytm-rich-shelf-renderer:has(h2 .yt-core-attributed-string:has-text("YouTube Playables")),
+ytm-rich-shelf-renderer:has(a[href*="/playables"]) {
+  display: none !important;
+}
+
+/* Hide mini game cards */
+mini-game-card-view-model,
+.yt-mini-game-card-view-model {
+  display: none !important;
+}
+
+/* === BLOCK PROMOTIONAL/DISMISSABLE CONTENT === */
+/* Hide any rich section with dismissal buttons (usually promotional) */
+ytm-rich-section-renderer:has(.icon-dismissal) {
+  display: none !important;
+}
+
+/* Block news, trending, and other non-video content */
+ytm-rich-section-renderer:has(h2 .yt-core-attributed-string:has-text("News")),
+ytm-rich-section-renderer:has(h2 .yt-core-attributed-string:has-text("Trending")),
+ytm-rich-section-renderer:has(h2 .yt-core-attributed-string:has-text("Breaking news")),
+ytm-rich-section-renderer:has(h2 .yt-core-attributed-string:has-text("Live")) {
+  display: none !important;
+}
+
+/* === ORIGINAL SHORTS BLOCKING === */
 
 /* Hide entire sections containing Shorts - mobile/responsive view */
 ytm-rich-section-renderer:has(.shortsLockupViewModelHost),
@@ -66,5 +101,17 @@ ytd-item-section-renderer:has(ytd-reel-shelf-renderer) {
 
 /* Hide links with reel-item-endpoint class (Shorts specific) */
 .reel-item-endpoint {
+  display: none !important;
+}
+
+/* === ADDITIONAL SLOP BLOCKING === */
+/* Block any section with "Play" buttons (games/interactive content) */
+ytm-rich-section-renderer:has(button-view-model:has(.yt-spec-button-shape-next__button-text-content:has-text("Play"))) {
+  display: none !important;
+}
+
+/* Hide desktop game/promotional sections */
+ytd-rich-section-renderer:has(mini-game-card-view-model),
+ytd-rich-section-renderer:has(.yt-mini-game-card-view-model) {
   display: none !important;
 }

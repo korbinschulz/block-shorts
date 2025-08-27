@@ -1,7 +1,55 @@
-// Block YouTube Shorts - Content Script
+// Block YouTube Shorts & Slop - Content Script
 
-// Function to hide Shorts elements dynamically
+// Function to hide Shorts and other slop elements dynamically
 function hideShorts() {
+  // === BLOCK YOUTUBE PLAYABLES (GAMES) ===
+  // Hide sections containing YouTube Playables
+  const playablesSections = document.querySelectorAll('ytm-rich-section-renderer, ytd-rich-section-renderer');
+  playablesSections.forEach(section => {
+    // Check for game cards or Playables title
+    if (section.querySelector('mini-game-card-view-model') || 
+        section.querySelector('.yt-mini-game-card-view-model') ||
+        section.querySelector('a[href*="/playables"]')) {
+      section.style.display = 'none';
+    }
+    
+    // Check for "YouTube Playables" in title
+    const titleElement = section.querySelector('h2 .yt-core-attributed-string');
+    if (titleElement && titleElement.textContent.includes('YouTube Playables')) {
+      section.style.display = 'none';
+    }
+    
+    // Check for dismissal button (promotional content)
+    if (section.querySelector('.icon-dismissal')) {
+      section.style.display = 'none';
+    }
+  });
+  
+  // Hide Playables shelf specifically
+  const playablesShelves = document.querySelectorAll('ytm-rich-shelf-renderer');
+  playablesShelves.forEach(shelf => {
+    const titleEl = shelf.querySelector('h2 .yt-core-attributed-string');
+    if (titleEl && (titleEl.textContent.includes('YouTube Playables') || 
+                    titleEl.textContent.includes('Games'))) {
+      shelf.style.display = 'none';
+    }
+  });
+  
+  // Hide mini game cards directly
+  const gameCards = document.querySelectorAll('mini-game-card-view-model, .yt-mini-game-card-view-model');
+  gameCards.forEach(card => card.style.display = 'none');
+  
+  // === BLOCK OTHER SLOP (NEWS, TRENDING, ETC) ===
+  const slopTitles = ['News', 'Breaking news', 'Trending', 'Live', 'Gaming'];
+  const allSections = document.querySelectorAll('ytm-rich-section-renderer, ytd-rich-section-renderer, ytm-rich-shelf-renderer, ytd-rich-shelf-renderer');
+  allSections.forEach(section => {
+    const titleEl = section.querySelector('h2 .yt-core-attributed-string, span.yt-core-attributed-string');
+    if (titleEl && slopTitles.some(slop => titleEl.textContent.includes(slop))) {
+      section.style.display = 'none';
+    }
+  });
+  
+  // === ORIGINAL SHORTS BLOCKING ===
   // Hide mobile/responsive Shorts sections
   const mobileRichSections = document.querySelectorAll('ytm-rich-section-renderer');
   mobileRichSections.forEach(section => {
@@ -97,7 +145,8 @@ function hideShorts() {
   reelItems.forEach(el => el.style.display = 'none');
 }
 
-// Run on page load
+// Run on page load with slight delay for dynamic content
+setTimeout(hideShorts, 100);
 hideShorts();
 
 // Set up observer for dynamically loaded content
